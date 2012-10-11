@@ -15,6 +15,9 @@
 		9B0BE7E315B8964B0080ADC7 /* RSWebSocketApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0BE7C515B8964B0080ADC7 /* RSWebSocketApplication.framework */; };
 		9B0BE7E915B8964B0080ADC7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B0BE7E715B8964B0080ADC7 /* InfoPlist.strings */; };
 		9B0BE7EC15B8964B0080ADC7 /* RSWebSocketApplicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BE7EB15B8964B0080ADC7 /* RSWebSocketApplicationTests.m */; };
+		9B63152315E453D40099B0BA /* RSWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B63151A15E453910099B0BA /* RSWebSocket.framework */; };
+		9B63152415E453DF0099B0BA /* RSWebSocket.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B63151A15E453910099B0BA /* RSWebSocket.framework */; };
+		9BE6B02015E45AC0006EF554 /* RSWebSocketApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B0BE7D515B8964B0080ADC7 /* RSWebSocketApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,7 +28,55 @@
 			remoteGlobalIDString = 9B0BE7C415B8964B0080ADC7;
 			remoteInfo = RSWebSocketApplication;
 		};
+		9B63151915E453910099B0BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B63151215E453910099B0BA /* RSWebSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9B19FC7014D615E100D8F2CB;
+			remoteInfo = RSWebSocket;
+		};
+		9B63151B15E453910099B0BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B63151215E453910099B0BA /* RSWebSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9B19FC8814D615E100D8F2CB;
+			remoteInfo = RSWebSocketTests;
+		};
+		9B63151D15E453910099B0BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B63151215E453910099B0BA /* RSWebSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9BFD3AB41537D5D100F9A1F2;
+			remoteInfo = AutobahnTests;
+		};
+		9B63151F15E453910099B0BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B63151215E453910099B0BA /* RSWebSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9BFD3A951537793000F9A1F2;
+			remoteInfo = Echo;
+		};
+		9B63152115E453BF0099B0BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B63151215E453910099B0BA /* RSWebSocket.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B19FC6F14D615E100D8F2CB;
+			remoteInfo = RSWebSocket;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9B877F0515E42B71000264F8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9B63152415E453DF0099B0BA /* RSWebSocket.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9B0BE7C515B8964B0080ADC7 /* RSWebSocketApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RSWebSocketApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,17 +84,19 @@
 		9B0BE7CB15B8964B0080ADC7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		9B0BE7CC15B8964B0080ADC7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		9B0BE7CD15B8964B0080ADC7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		9B0BE7D015B8964B0080ADC7 /* RSWebSocketApplication-Info.plist */ = {isa = PBXFileReference; path = "RSWebSocketApplication-Info.plist"; sourceTree = "<group>"; };
+		9B0BE7D015B8964B0080ADC7 /* RSWebSocketApplication-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSWebSocketApplication-Info.plist"; sourceTree = "<group>"; };
 		9B0BE7D215B8964B0080ADC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		9B0BE7D415B8964B0080ADC7 /* RSWebSocketApplication-Prefix.pch */ = {isa = PBXFileReference; path = "RSWebSocketApplication-Prefix.pch"; sourceTree = "<group>"; };
-		9B0BE7D515B8964B0080ADC7 /* RSWebSocketApplication.h */ = {isa = PBXFileReference; path = RSWebSocketApplication.h; sourceTree = "<group>"; };
+		9B0BE7D415B8964B0080ADC7 /* RSWebSocketApplication-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSWebSocketApplication-Prefix.pch"; sourceTree = "<group>"; };
+		9B0BE7D515B8964B0080ADC7 /* RSWebSocketApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSWebSocketApplication.h; sourceTree = "<group>"; };
 		9B0BE7D615B8964B0080ADC7 /* RSWebSocketApplication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSWebSocketApplication.m; sourceTree = "<group>"; };
 		9B0BE7DD15B8964B0080ADC7 /* RSWebSocketApplicationTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSWebSocketApplicationTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B0BE7DE15B8964B0080ADC7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		9B0BE7E615B8964B0080ADC7 /* RSWebSocketApplicationTests-Info.plist */ = {isa = PBXFileReference; path = "RSWebSocketApplicationTests-Info.plist"; sourceTree = "<group>"; };
+		9B0BE7E615B8964B0080ADC7 /* RSWebSocketApplicationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSWebSocketApplicationTests-Info.plist"; sourceTree = "<group>"; };
 		9B0BE7E815B8964B0080ADC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		9B0BE7EA15B8964B0080ADC7 /* RSWebSocketApplicationTests.h */ = {isa = PBXFileReference; path = RSWebSocketApplicationTests.h; sourceTree = "<group>"; };
+		9B0BE7EA15B8964B0080ADC7 /* RSWebSocketApplicationTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSWebSocketApplicationTests.h; sourceTree = "<group>"; };
 		9B0BE7EB15B8964B0080ADC7 /* RSWebSocketApplicationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSWebSocketApplicationTests.m; sourceTree = "<group>"; };
+		9B63151215E453910099B0BA /* RSWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RSWebSocket.xcodeproj; path = /Users/rich/Documents/Classes/RIT/Capstone/src/RSWebSocketApplication/../RSWebSocket/RSWebSocket.xcodeproj; sourceTree = "<absolute>"; };
+		9B8784B315E435BF000264F8 /* RSWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RSWebSocket.framework; path = "../../../../../../Library/Developer/Xcode/DerivedData/Capstone-duanqqynzfhsxpgtmwgqqksiavoh/Build/Products/Debug/RSWebSocket.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B63152315E453D40099B0BA /* RSWebSocket.framework in Frameworks */,
 				9B0BE7C915B8964B0080ADC7 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +125,7 @@
 		9B0BE7B915B8964B0080ADC7 = {
 			isa = PBXGroup;
 			children = (
+				9B63151215E453910099B0BA /* RSWebSocket.xcodeproj */,
 				9B0BE7CE15B8964B0080ADC7 /* RSWebSocketApplication */,
 				9B0BE7E415B8964B0080ADC7 /* RSWebSocketApplicationTests */,
 				9B0BE7C715B8964B0080ADC7 /* Frameworks */,
@@ -90,6 +145,7 @@
 		9B0BE7C715B8964B0080ADC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B8784B315E435BF000264F8 /* RSWebSocket.framework */,
 				9B0BE7C815B8964B0080ADC7 /* Cocoa.framework */,
 				9B0BE7DE15B8964B0080ADC7 /* SenTestingKit.framework */,
 				9B0BE7CA15B8964B0080ADC7 /* Other Frameworks */,
@@ -146,6 +202,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9B63151315E453910099B0BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B63151A15E453910099B0BA /* RSWebSocket.framework */,
+				9B63151C15E453910099B0BA /* RSWebSocketTests.octest */,
+				9B63151E15E453910099B0BA /* AutobahnTests.app */,
+				9B63152015E453910099B0BA /* Echo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -153,6 +220,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BE6B02015E45AC0006EF554 /* RSWebSocketApplication.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,10 +235,12 @@
 				9B0BE7C115B8964B0080ADC7 /* Frameworks */,
 				9B0BE7C215B8964B0080ADC7 /* Headers */,
 				9B0BE7C315B8964B0080ADC7 /* Resources */,
+				9B877F0515E42B71000264F8 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9B63152215E453BF0099B0BA /* PBXTargetDependency */,
 			);
 			name = RSWebSocketApplication;
 			productName = RSWebSocketApplication;
@@ -202,7 +272,7 @@
 		9B0BE7BB15B8964B0080ADC7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = 9B0BE7BE15B8964B0080ADC7 /* Build configuration list for PBXProject "RSWebSocketApplication" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -214,6 +284,12 @@
 			mainGroup = 9B0BE7B915B8964B0080ADC7;
 			productRefGroup = 9B0BE7C615B8964B0080ADC7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9B63151315E453910099B0BA /* Products */;
+					ProjectRef = 9B63151215E453910099B0BA /* RSWebSocket.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9B0BE7C415B8964B0080ADC7 /* RSWebSocketApplication */,
@@ -221,6 +297,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9B63151A15E453910099B0BA /* RSWebSocket.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RSWebSocket.framework;
+			remoteRef = 9B63151915E453910099B0BA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9B63151C15E453910099B0BA /* RSWebSocketTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RSWebSocketTests.octest;
+			remoteRef = 9B63151B15E453910099B0BA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9B63151E15E453910099B0BA /* AutobahnTests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = AutobahnTests.app;
+			remoteRef = 9B63151D15E453910099B0BA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9B63152015E453910099B0BA /* Echo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Echo.app;
+			remoteRef = 9B63151F15E453910099B0BA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9B0BE7C315B8964B0080ADC7 /* Resources */ = {
@@ -281,6 +388,11 @@
 			isa = PBXTargetDependency;
 			target = 9B0BE7C415B8964B0080ADC7 /* RSWebSocketApplication */;
 			targetProxy = 9B0BE7E115B8964B0080ADC7 /* PBXContainerItemProxy */;
+		};
+		9B63152215E453BF0099B0BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RSWebSocket;
+			targetProxy = 9B63152115E453BF0099B0BA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -354,12 +466,16 @@
 		9B0BE7F015B8964B0080ADC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSWebSocketApplication/RSWebSocketApplication-Prefix.pch";
 				INFOPLIST_FILE = "RSWebSocketApplication/RSWebSocketApplication-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -368,12 +484,16 @@
 		9B0BE7F115B8964B0080ADC7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSWebSocketApplication/RSWebSocketApplication-Prefix.pch";
 				INFOPLIST_FILE = "RSWebSocketApplication/RSWebSocketApplication-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -382,6 +502,7 @@
 		9B0BE7F315B8964B0080ADC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSWebSocketApplication/RSWebSocketApplication-Prefix.pch";
@@ -394,6 +515,7 @@
 		9B0BE7F415B8964B0080ADC7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSWebSocketApplication/RSWebSocketApplication-Prefix.pch";
@@ -422,6 +544,7 @@
 				9B0BE7F115B8964B0080ADC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9B0BE7F215B8964B0080ADC7 /* Build configuration list for PBXNativeTarget "RSWebSocketApplicationTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +553,7 @@
 				9B0BE7F415B8964B0080ADC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
