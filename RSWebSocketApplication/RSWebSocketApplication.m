@@ -8,6 +8,22 @@
 
 #import "RSWebSocketApplication.h"
 
+const char * get_message_type(int mtype) {
+    switch (mtype) {
+        case MESSAGE_TYPEID_WELCOME: return "Welcome";
+        case MESSAGE_TYPEID_PREFIX: return "Prefix";
+        case MESSAGE_TYPEID_CALL: return "Call";
+        case MESSAGE_TYPEID_CALL_RESULT: return "Call Result";
+        case MESSAGE_TYPEID_CALL_ERROR: return "Call Error";
+        case MESSAGE_TYPEID_SUBSCRIBE: return "Subscribe";
+        case MESSAGE_TYPEID_UNSUBSCRIBE: return "Unsubscribe";
+        case MESSAGE_TYPEID_PUBLISH: return "Publish";
+        case MESSAGE_TYPEID_EVENT: return "Event";
+    }
+    return "Unknown Event";
+}
+
+
 @implementation RSWebSocketApplication
 
 @synthesize delegate;
@@ -15,11 +31,11 @@
 @synthesize version;
 
 #pragma mark WebSocketApplication Class Lifecycle
-+ (id) webSocketApplicationConnectWithUrl: (NSString *) aURLString delegate:(id<RSWebSocketApplication>) aDelegate {
++ (id) webSocketApplicationConnectWithUrl: (NSString *) aURLString delegate:(id<RSWebSocketApplicationDelegate>) aDelegate {
     return [[[self class] alloc] initWebSocketApplicationConnectWithUrl:aURLString delegate:aDelegate];
 }
 
-- (id) initWebSocketApplicationConnectWithUrl: (NSString *) aURLString delegate:(id<RSWebSocketApplication>) aDelegate {
+- (id) initWebSocketApplicationConnectWithUrl: (NSString *) aURLString delegate:(id<RSWebSocketApplicationDelegate>) aDelegate {
     self = [super init];
     if (self) {
         self.version = WebSocketApplictionVersion01;
@@ -44,6 +60,12 @@
     return self;
 }
 
+- (void) closeWebSocketApplicationConnection
+{
+    NSLog(@"Closing WebSocket connection");
+    [ws close];
+}
+
 
 #pragma mark WAMP Server Events
 - (void) receivedWelcomeMessage: (NSArray *) message {
@@ -63,7 +85,7 @@
     callId = [message objectAtIndex:1];
     callResult = [message objectAtIndex:2];
     
-    NSInvocation *callInv = [callList objectForKey:callId];
+    NSInvocation *callInv = [[callList objectForKey:callId] objectAtIndex:0];
     if (callInv) {
         // The parameter to this invocation
         // Note that we pass it at index 2 - indices 0 and 1
@@ -81,20 +103,38 @@
 
 - (void) receivedCallErrorMessage: (NSArray *) message {
     // For MESSAGE_TYPEID_CALL_ERROR
-    NSString *callEID;
+    NSString *callId;
     NSString *errorURI;
     NSString *errorDesc;
     id errorDetails; // We may receive a converted JSON value that maps to a simple or complex data type
-    
-    callEID = [message objectAtIndex:1];
+    callId = [message objectAtIndex:1];
     errorURI = [message objectAtIndex:2];
     errorDesc = [message objectAtIndex:3]; // Always present, may be empty.
     
     if ([message count] - 1 == 4) 
         errorDetails = [message objectAtIndex:4]; // Optional, but cannot be empty 
-    // and must be human-readable
+                                                  // and must be human-readable
     
-    
+    NSInvocation *callInv = [[callList objectForKey:callId] objectAtIndex:1];
+    if (callInv) {
+        // The parameter to this invocation
+        // Note that we pass it at index 2 - indices 0 and 1
+        // are taken by the hidden arguments self and _cmd, accessible through -setTarget:
+        // and -setSelector:
+        [callInv setArgument:&errorURI atIndex:2];
+        [callInv setArgument:&errorDesc atIndex:3];
+        if (errorDetails)
+            [callInv setArgument:&errorDetails atIndex:4];
+
+        [callInv invoke]; // We don't care about the return value?
+        
+        // Call is done, remove from dictionary
+        [callList removeObjectForKey:callId];
+    } else {
+        NSLog(@"Warning: Received unsolicited CALLERROR: %@", callId);
+    }
+
+    NSLog(@"Error received: %@ %@ %@", callId, errorURI, errorDesc);
 }
 
 - (void) receivedEventMessage: (NSArray *) message {
@@ -130,7 +170,7 @@
     [ws sendText:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
 }
 
-- (void) sendCallMessage:(NSString *) uri target:(id)target selector:(SEL)selector args:(id)callArgs {
+- (void) sendCallMessage:(NSString *) uri target:(id)target resultSelector:(SEL)cSel errorSelector:(SEL)eSel args:(id)callArgs {
 
     NSError *e = nil;
     NSData *jsonData;
@@ -154,7 +194,7 @@
     [ws sendText:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
     
     // Record our call's information for later, asynchronous return of data
-    [self addCallToList:callId target:target selector:selector];
+    [self addCallToList:callId target:target resultSelector:cSel errorSelector:eSel];
 }
 
 - (void) sendSubscribeMessage:(NSString*)topicUri {
@@ -272,6 +312,7 @@
      localMessage:(NSString *) closingStatusLocalMessage
        remoteCode:(NSUInteger) closingStatusRemoteCode
     remoteMessage:(NSString *) closingStatusRemoteMessage {
+    NSLog(@"Connection Closed to WebSocket Server");
 }
 
 - (void) didReceiveTextMessage: (NSString*) aMessage {    
@@ -288,8 +329,7 @@
     
         
     int message_type = [[message objectAtIndex:0] intValue];
-    
-    NSLog(@"Received message type %d", message_type);
+    NSLog(@"Received message type %s (id %d)", get_message_type(message_type), message_type);
     
     // We should receive SERVER messages here.
     switch (message_type) {
@@ -331,19 +371,25 @@
 }
 
 #pragma mark Utility functions
--(void) addCallToList:(NSString *) callId target:(id)callBackObj selector:(SEL)callBackSelector {
+-(void) addCallToList:(NSString *) callId target:(id)callBackObj resultSelector:(SEL)rSel errorSelector:(SEL)eSel {
+//    NSLog(@"%@ %@ %@ %@ %@ %@",callId, callBackObj, NSStringFromSelector(rSel), NSStringFromSelector(eSel), [callBackObj methodSignatureForSelector:rSel],[callBackObj methodSignatureForSelector:eSel]);
+    
     //This invocation is going to be of the form aSelector
-    NSInvocation *aInv = [NSInvocation invocationWithMethodSignature:[callBackObj methodSignatureForSelector:callBackSelector]];
-    
+    NSInvocation *aRInv = [NSInvocation invocationWithMethodSignature:[callBackObj methodSignatureForSelector:rSel]];
+    NSInvocation *aEInv = [NSInvocation invocationWithMethodSignature:[callBackObj methodSignatureForSelector:eSel]];
+
     //This invocation is going to be an invocation of aSelector
-    [aInv setSelector:callBackSelector];
-    
+    [aRInv setSelector:rSel];
+    [aEInv setSelector:eSel];
+
     //This invocation is going to send its message to self
-    [aInv setTarget:callBackObj];
-    
+    [aRInv setTarget:callBackObj];
+    [aEInv setTarget:callBackObj];
+
     // We'll set the argument when we get a callresult or a callerror type, above.
     // For now, store it in our dictionary.
-    [callList setObject:aInv forKey:callId];
+    NSArray *invArray = [NSArray arrayWithObjects: aRInv, aEInv, nil];
+    [callList setObject:invArray forKey:callId];
 }
 
 NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

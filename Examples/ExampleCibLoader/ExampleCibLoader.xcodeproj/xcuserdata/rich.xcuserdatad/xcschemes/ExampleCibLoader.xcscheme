@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B43BE8F15E6EE4A0082BF26"
-               BuildableName = "WampRpcTest.app"
-               BlueprintName = "WampRpcTest"
-               ReferencedContainer = "container:WampRpcTest.xcodeproj">
+               BlueprintIdentifier = "9B9F2E3F17F6271700B25CB5"
+               BuildableName = "ExampleCibLoader.app"
+               BlueprintName = "ExampleCibLoader"
+               ReferencedContainer = "container:ExampleCibLoader.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,14 +28,24 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9B9F2E6017F6271700B25CB5"
+               BuildableName = "ExampleCibLoaderTests.xctest"
+               BlueprintName = "ExampleCibLoaderTests"
+               ReferencedContainer = "container:ExampleCibLoader.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B43BE8F15E6EE4A0082BF26"
-            BuildableName = "WampRpcTest.app"
-            BlueprintName = "WampRpcTest"
-            ReferencedContainer = "container:WampRpcTest.xcodeproj">
+            BlueprintIdentifier = "9B9F2E3F17F6271700B25CB5"
+            BuildableName = "ExampleCibLoader.app"
+            BlueprintName = "ExampleCibLoader"
+            ReferencedContainer = "container:ExampleCibLoader.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,10 +61,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B43BE8F15E6EE4A0082BF26"
-            BuildableName = "WampRpcTest.app"
-            BlueprintName = "WampRpcTest"
-            ReferencedContainer = "container:WampRpcTest.xcodeproj">
+            BlueprintIdentifier = "9B9F2E3F17F6271700B25CB5"
+            BuildableName = "ExampleCibLoader.app"
+            BlueprintName = "ExampleCibLoader"
+            ReferencedContainer = "container:ExampleCibLoader.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -69,10 +79,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B43BE8F15E6EE4A0082BF26"
-            BuildableName = "WampRpcTest.app"
-            BlueprintName = "WampRpcTest"
-            ReferencedContainer = "container:WampRpcTest.xcodeproj">
+            BlueprintIdentifier = "9B9F2E3F17F6271700B25CB5"
+            BuildableName = "ExampleCibLoader.app"
+            BlueprintName = "ExampleCibLoader"
+            ReferencedContainer = "container:ExampleCibLoader.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

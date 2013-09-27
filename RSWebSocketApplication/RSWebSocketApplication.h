@@ -39,10 +39,12 @@ enum {
     MESSAGE_TYPEID_EVENT          = 8
     // Server-to-client message providing the event of a (subscribed) topic.
 };
+
+
 typedef NSUInteger RSWebSocketApplicationMessageType;
 
 #pragma mark WAMP delegate class
-@protocol RSWebSocketApplication <NSObject>
+@protocol RSWebSocketApplicationDelegate <NSObject>
 
 /**
    Called when the web socket application messaging protocol connects
@@ -55,13 +57,12 @@ typedef NSUInteger RSWebSocketApplicationMessageType;
  Called when a subscriber receives an event
  **/
 - (void) didEvent:(NSString*)topicUri event:(id)event;
-
 @end
 
 
 #pragma mark WAMP main class
 @interface RSWebSocketApplication : NSObject <RSWebSocketDelegate> {
-    id<RSWebSocketApplication> delegate;
+    id<RSWebSocketApplicationDelegate> delegate;
     RSWebSocket* ws;
     NSString *sessionId;
     int protocol_version;
@@ -72,14 +73,15 @@ typedef NSUInteger RSWebSocketApplicationMessageType;
 }
 
 // Callback delegate for websocket events.
-@property(nonatomic,retain) id<RSWebSocketApplication> delegate;
+@property(nonatomic,retain) id<RSWebSocketApplicationDelegate> delegate;
 @property (nonatomic, readonly) RSWebSocket* ws;
 @property(nonatomic,assign) WebSocketVersion version;
 
-+ (id) webSocketApplicationConnectWithUrl: (NSString *) aURLString delegate:(id<RSWebSocketApplication>) aDelegate;
-- (id) initWebSocketApplicationConnectWithUrl: (NSString *) aURLString delegate:(id<RSWebSocketApplication>) aDelegate;
++ (id) webSocketApplicationConnectWithUrl: (NSString *) aURLString delegate:(id<RSWebSocketApplicationDelegate>) aDelegate;
+- (id) initWebSocketApplicationConnectWithUrl: (NSString *) aURLString delegate:(id<RSWebSocketApplicationDelegate>) aDelegate;
+- (void) closeWebSocketApplicationConnection;
 - (void) sendPrefixMessage:(NSString *)prefix uri:(NSString *)uri;
-- (void) sendCallMessage:(NSString *) uri target:(id)target selector:(SEL)selector args:(id)args;
+- (void) sendCallMessage:(NSString *) uri target:(id)target resultSelector:(SEL)cSel errorSelector:(SEL)eSel args:(id)callArgs;
 - (void) sendSubscribeMessage:(NSString*)topicUri;
 - (void) sendUnsubscribeMessage:(NSString*)topicUri;
 - (void) sendPublishMessage:(NSString*)topicUri event:(id)event;
