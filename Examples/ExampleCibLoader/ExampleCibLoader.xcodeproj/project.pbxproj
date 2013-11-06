@@ -18,6 +18,14 @@
 		9B9F2E6417F6271700B25CB5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9F2E4317F6271700B25CB5 /* Cocoa.framework */; };
 		9B9F2E6C17F6271700B25CB5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B9F2E6A17F6271700B25CB5 /* InfoPlist.strings */; };
 		9B9F2E6E17F6271700B25CB5 /* ExampleCibLoaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F2E6D17F6271700B25CB5 /* ExampleCibLoaderTests.m */; };
+		9B9F2F3C17F8E4B000B25CB5 /* CPApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F2F3B17F8E4B000B25CB5 /* CPApplication.m */; };
+		9B9F2F3D17F8E7B600B25CB5 /* CPCib.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F2E7F17F8CAEC00B25CB5 /* CPCib.m */; };
+		9B9F2F4017F8EEA200B25CB5 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F2F3F17F8EEA200B25CB5 /* NSData+Base64.m */; };
+		9B9F2F4117F8EF6700B25CB5 /* CPCibLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F2E8017F8CD0800B25CB5 /* CPCibLoading.m */; };
+		9B9F2F4317F8F0C700B25CB5 /* CPBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F2E8317F8D69F00B25CB5 /* CPBundle.m */; };
+		9B9F2F4517F8F3C800B25CB5 /* CPCibObjectData.m in Resources */ = {isa = PBXBuildFile; fileRef = 9B9F2F4417F8F3C800B25CB5 /* CPCibObjectData.m */; };
+		9B9F2F4717F8F43800B25CB5 /* CPCibObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F2F4417F8F3C800B25CB5 /* CPCibObjectData.m */; };
+		9B9F2F4917F8F4D600B25CB5 /* CPCibCustomObject.m in Resources */ = {isa = PBXBuildFile; fileRef = 9B9F2F4817F8F4D600B25CB5 /* CPCibCustomObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +58,22 @@
 		9B9F2E6917F6271700B25CB5 /* ExampleCibLoaderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ExampleCibLoaderTests-Info.plist"; sourceTree = "<group>"; };
 		9B9F2E6B17F6271700B25CB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9B9F2E6D17F6271700B25CB5 /* ExampleCibLoaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleCibLoaderTests.m; sourceTree = "<group>"; };
+		9B9F2E7B17F7D1C100B25CB5 /* CPPropertyListSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPropertyListSerialization.m; sourceTree = "<group>"; };
+		9B9F2E7D17F7D1D400B25CB5 /* CFPropertyList.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = CFPropertyList.js; sourceTree = "<group>"; };
+		9B9F2E7F17F8CAEC00B25CB5 /* CPCib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPCib.m; sourceTree = "<group>"; };
+		9B9F2E8017F8CD0800B25CB5 /* CPCibLoading.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPCibLoading.m; sourceTree = "<group>"; };
+		9B9F2E8117F8CEEA00B25CB5 /* CPCib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPCib.h; sourceTree = "<group>"; };
+		9B9F2E8217F8CF5700B25CB5 /* CPCibLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCibLoading.h; sourceTree = "<group>"; };
+		9B9F2E8317F8D69F00B25CB5 /* CPBundle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPBundle.m; sourceTree = "<group>"; };
+		9B9F2E8417F8D71900B25CB5 /* CFBundle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = CFBundle.js; sourceTree = "<group>"; };
+		9B9F2F3A17F8E4B000B25CB5 /* CPApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPApplication.h; sourceTree = "<group>"; };
+		9B9F2F3B17F8E4B000B25CB5 /* CPApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPApplication.m; sourceTree = "<group>"; };
+		9B9F2F3E17F8EEA200B25CB5 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		9B9F2F3F17F8EEA200B25CB5 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		9B9F2F4217F8F0B800B25CB5 /* CPBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPBundle.h; sourceTree = "<group>"; };
+		9B9F2F4417F8F3C800B25CB5 /* CPCibObjectData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCibObjectData.m; sourceTree = "<group>"; };
+		9B9F2F4617F8F3D900B25CB5 /* CPCibObjectData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCibObjectData.h; sourceTree = "<group>"; };
+		9B9F2F4817F8F4D600B25CB5 /* CPCibCustomObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCibCustomObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +141,21 @@
 			children = (
 				9B9F2E5517F6271700B25CB5 /* AppDelegate.h */,
 				9B9F2E5617F6271700B25CB5 /* AppDelegate.m */,
+				9B9F2F3A17F8E4B000B25CB5 /* CPApplication.h */,
+				9B9F2F3B17F8E4B000B25CB5 /* CPApplication.m */,
+				9B9F2E8117F8CEEA00B25CB5 /* CPCib.h */,
+				9B9F2E7F17F8CAEC00B25CB5 /* CPCib.m */,
+				9B9F2E8217F8CF5700B25CB5 /* CPCibLoading.h */,
+				9B9F2E8017F8CD0800B25CB5 /* CPCibLoading.m */,
 				9B9F2E5817F6271700B25CB5 /* MainMenu.xib */,
+				9B9F2F3E17F8EEA200B25CB5 /* NSData+Base64.h */,
+				9B9F2F3F17F8EEA200B25CB5 /* NSData+Base64.m */,
+				9B9F2F4217F8F0B800B25CB5 /* CPBundle.h */,
+				9B9F2E8317F8D69F00B25CB5 /* CPBundle.m */,
+				9B9F2F4617F8F3D900B25CB5 /* CPCibObjectData.h */,
+				9B9F2F4417F8F3C800B25CB5 /* CPCibObjectData.m */,
+				9B9F2F4817F8F4D600B25CB5 /* CPCibCustomObject.m */,
+				9B9F2E7917F627F300B25CB5 /* CIB Attempt 1 */,
 				9B9F2E5B17F6271700B25CB5 /* Images.xcassets */,
 				9B9F2E4A17F6271700B25CB5 /* Supporting Files */,
 			);
@@ -152,6 +190,16 @@
 				9B9F2E6A17F6271700B25CB5 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9B9F2E7917F627F300B25CB5 /* CIB Attempt 1 */ = {
+			isa = PBXGroup;
+			children = (
+				9B9F2E8417F8D71900B25CB5 /* CFBundle.js */,
+				9B9F2E7B17F7D1C100B25CB5 /* CPPropertyListSerialization.m */,
+				9B9F2E7D17F7D1D400B25CB5 /* CFPropertyList.js */,
+			);
+			name = "CIB Attempt 1";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +280,8 @@
 			files = (
 				9B9F2E4E17F6271700B25CB5 /* InfoPlist.strings in Resources */,
 				9B9F2E5C17F6271700B25CB5 /* Images.xcassets in Resources */,
+				9B9F2F4917F8F4D600B25CB5 /* CPCibCustomObject.m in Resources */,
+				9B9F2F4517F8F3C800B25CB5 /* CPCibObjectData.m in Resources */,
 				9B9F2E5417F6271700B25CB5 /* Credits.rtf in Resources */,
 				9B9F2E5A17F6271700B25CB5 /* MainMenu.xib in Resources */,
 			);
@@ -252,7 +302,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B9F2F4717F8F43800B25CB5 /* CPCibObjectData.m in Sources */,
+				9B9F2F4317F8F0C700B25CB5 /* CPBundle.m in Sources */,
+				9B9F2F4117F8EF6700B25CB5 /* CPCibLoading.m in Sources */,
+				9B9F2F3D17F8E7B600B25CB5 /* CPCib.m in Sources */,
 				9B9F2E5717F6271700B25CB5 /* AppDelegate.m in Sources */,
+				9B9F2F4017F8EEA200B25CB5 /* NSData+Base64.m in Sources */,
+				9B9F2F3C17F8E4B000B25CB5 /* CPApplication.m in Sources */,
 				9B9F2E5017F6271700B25CB5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

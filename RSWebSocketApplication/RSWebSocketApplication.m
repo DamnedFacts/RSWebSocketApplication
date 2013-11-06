@@ -178,13 +178,18 @@ const char * get_message_type(int mtype) {
     NSString *callId = [self genRandStringLength:16];
     
     //build an message object and convert to json
-    NSArray* message = [NSArray arrayWithObjects:
+    NSMutableArray* message = [NSMutableArray arrayWithObjects:
                         [NSNumber numberWithInt:MESSAGE_TYPEID_CALL],
                         callId,
                         uri,
                         nil];
     
-    message = [message arrayByAddingObjectsFromArray:callArgs];
+    if ([callArgs isKindOfClass: [NSArray class]]){
+        message = [NSMutableArray arrayWithArray:message];
+        [message addObjectsFromArray:callArgs];
+    } else {
+        [message addObject:callArgs];
+    }
     
     jsonData = [NSJSONSerialization dataWithJSONObject:message options:kNilOptions error:&e];
     

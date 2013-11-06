@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>CA5C4E7E-0C55-4A97-A9A8-86DDCDFBCD47</string>
+	<string>F7503ED9-2185-4D75-A63C-E2BD2F7A9362</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ExampleCibLoader</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>8B3A0ECA-8B58-44BB-9674-4134C183730E</string>
 			<key>IDESourceControlWCCName</key>
-			<string>RSWebSocketApplication</string>
+			<string>ExampleCibLoader</string>
 		</dict>
 	</array>
 </dict>
