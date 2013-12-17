@@ -30,7 +30,7 @@ const char * get_message_type(int mtype) {
 @synthesize ws;
 @synthesize version;
 
-#pragma mark WebSocketApplication Class Lifecycle
+#pragma mark RSWebSocketApplication Class Lifecycle
 + (id) webSocketApplicationConnectWithUrl: (NSString *) aURLString delegate:(id<RSWebSocketApplicationDelegate>) aDelegate {
     return [[[self class] alloc] initWebSocketApplicationConnectWithUrl:aURLString delegate:aDelegate];
 }
@@ -56,6 +56,8 @@ const char * get_message_type(int mtype) {
     }
     
     callList = [[NSMutableDictionary alloc] init];
+    registeredRpcList = [[NSMutableDictionary alloc] init];
+    prefixes = [[NSMutableDictionary alloc] init];
     
     return self;
 }
@@ -66,6 +68,66 @@ const char * get_message_type(int mtype) {
     [ws close];
 }
 
+#pragma mark RSWebSocketApplication Registrations
+//Register an service object for RPC. A service object has methods which are decorated using @exportRpc.
+- (void) registerForRpc:(id)target baseUri:(NSString *)uri;
+{
+    NSString *key = uri;
+    
+    NSURL *url = [NSURL URLWithString:uri];
+    if ([[url scheme] compare:@"http"] != NSOrderedSame) {
+        // We have a curie, normalize to full standard URI
+        NSString *curie = [[uri componentsSeparatedByString:@":"] objectAtIndex:0];
+        NSString *rpcName = [[uri componentsSeparatedByString:@":"] objectAtIndex:1];
+        key = [NSString stringWithFormat:@"%@%@", [prefixes objectForKey:curie], rpcName];
+    }
+    
+    // We'll set the argument when we get a callresult or a callerror type, above.
+    // For now, store it in our dictionary.
+    [registeredRpcList setObject:@{@"target":target,@"selector":[NSNull null]} forKey:key];
+}
+
+//Register a method of an object for RPC.
+- (void) registerMethodForRpc:(id)target selector:(NSString *)selector baseUri:(NSString *)uri
+{
+    NSString *key = uri;
+    
+    NSURL *url = [NSURL URLWithString:uri];
+    if ([[url scheme] compare:@"http"] != NSOrderedSame) {
+        // We have a curie, normalize to full standard URI
+        NSString *curie = [[uri componentsSeparatedByString:@":"] objectAtIndex:0];
+        NSString *rpcName = [[uri componentsSeparatedByString:@":"] objectAtIndex:1];
+        key = [NSString stringWithFormat:@"%@%@", [prefixes objectForKey:curie], rpcName];
+    }
+    
+    // We'll set the argument when we get a callresult or a callerror type, above.
+    // For now, store it in our dictionary.
+    [registeredRpcList setObject:@{@"target":target,@"selector":selector} forKey:key];
+}
+
+
+
+//Register a (free standing) function/procedure for RPC.
+//- (void) registerProcedureForRpc(uri, proc);
+
+//Register a handler on an object for RPC.
+//- (void) registerHandlerMethodForRpc(uri, obj, handler, extra=None);
+
+//Register a (free standing) handler for RPC.
+//- (void) registerHandlerProcedureForRpc(uri, handler, extra=None);
+
+// Register a topic URI as publish/subscribe channel in this session.
+//- (void) registerForPubSub;
+
+// Register a handler object for PubSub.
+//- (void) registerHandlerForPubSub;
+
+// Register a method of an object as subscription handler.
+//- (void) registerHandlerForSub;
+
+// Register a method of an object as publication handler.
+//- (void) registerHandlerForPub;
+
 
 #pragma mark WAMP Server Events
 - (void) receivedWelcomeMessage: (NSArray *) message {
@@ -75,6 +137,69 @@ const char * get_message_type(int mtype) {
     serverIdent = [message objectAtIndex:3];
     
     [self dispatchWelcomed];    
+}
+
+- (void) receivedCallMessage: (NSArray *) message
+{
+    // FIXME unused. SHould be used for deferred, asynchronous calling tracking
+    //NSString *typeId      = [message objectAtIndex:0];
+    NSString *callId      = [message objectAtIndex:1];
+    NSString *callprocURI = [message objectAtIndex:2];
+    id callArgs           = [message objectAtIndex:3];
+        
+    id parameters = [callArgs objectForKey:@"parameters"];
+    NSString *sentSelector = [callArgs objectForKey:@"selector"];
+    
+    NSURL *url = [NSURL URLWithString:callprocURI];
+    NSString *key = callprocURI;
+    if ([[url scheme] compare:@"http"] != NSOrderedSame) {
+        // We have a curie, normalize to full standard URI
+        NSString *curie = [[callprocURI componentsSeparatedByString:@":"] objectAtIndex:0];
+        NSString *rpcName = [[callprocURI componentsSeparatedByString:@":"] objectAtIndex:1];
+        key = [NSString stringWithFormat:@"%@%@", [prefixes objectForKey:curie], rpcName];
+    }
+    id target = [[registeredRpcList objectForKey:callprocURI] objectForKey:@"target"];
+    NSString *selector = [[registeredRpcList objectForKey:callprocURI] objectForKey:@"selector"];
+    
+    if (![selector isKindOfClass:[NSNull class]] && [selector compare:sentSelector] != NSOrderedSame) {
+        NSLog(@"receivedCallMessage: unregistered selector sent to object");
+        return;
+    }
+    NSInvocation *inv = [self makeInvocationWithTarget:target selector:sentSelector parameters:parameters];
+    
+    // Handy technique learned here: http://stackoverflow.com/a/7078442/1724341
+    CFTypeRef result = nil;
+
+    id returnObj;
+    [inv invoke];
+    if ([[inv methodSignature] methodReturnLength] > 0) {
+        [inv getReturnValue:&result];
+    }
+    
+    if (result) {
+        CFRetain(result);
+        returnObj = (__bridge_transfer id)result;
+    } else {
+        // invocation has no return value, and result is nil
+        returnObj = @"null";
+    }
+    
+    
+    NSError *e = nil;
+    NSData *jsonData;
+    //build an message object and convert to json
+    NSMutableArray *resultMessage = [NSMutableArray arrayWithObjects:
+                                     [NSNumber numberWithInt:MESSAGE_TYPEID_CALL_RESULT],
+                                     callId,
+                                     returnObj,
+                                     nil];
+    
+    jsonData = [NSJSONSerialization dataWithJSONObject:resultMessage options:kNilOptions error:&e];
+    
+    if (!jsonData)
+        NSLog(@"Error parsing JSON string for message: %@", e);
+    
+    [ws sendText:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
 }
 
 - (void) receivedCallResultMessage: (NSArray *) message {
@@ -167,6 +292,10 @@ const char * get_message_type(int mtype) {
     if (!jsonData)
         NSLog(@"Error parsing JSON string for message: %@", e);
     
+    [prefixes setValue:uri forKey:prefix];
+    [prefixes  setValue:prefix forKey:uri];
+
+
     [ws sendText:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
 }
 
@@ -297,7 +426,6 @@ const char * get_message_type(int mtype) {
     [ws sendText:[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
 }
 
-
 #pragma mark RSWebSocketApplication Delegate Dispatch
 - (void) dispatchWelcomed {
     if (delegate) [delegate didWelcome];
@@ -350,13 +478,19 @@ const char * get_message_type(int mtype) {
         case MESSAGE_TYPEID_EVENT:
             [self receivedEventMessage:message];
             break;
-            
-            // These client messages SHOULD NOT apply to this server context of the client.
-        case MESSAGE_TYPEID_PREFIX:
         case MESSAGE_TYPEID_CALL:
+            // AS of AutobahnPython release 0.6.3, symmetric RPC is now supported
+            // Allowing the server to call RPC endpoints on the client.
+            [self receivedCallMessage:message];
+            break;
+        case MESSAGE_TYPEID_PREFIX:
+            // Not supported
         case MESSAGE_TYPEID_SUBSCRIBE:
+            // Not supported
         case MESSAGE_TYPEID_UNSUBSCRIBE:
+            // Not supported
         case MESSAGE_TYPEID_PUBLISH:
+            // Not supported
         default:
             // Will WAMP ever be a Peer-to-Peer protocol?
             NSLog(@"Received unexpected client message from server! Attempting to ignore.");
@@ -376,6 +510,34 @@ const char * get_message_type(int mtype) {
 }
 
 #pragma mark Utility functions
+-(NSInvocation *) makeInvocationWithTarget:(id)target selector:(NSString *)selectorString parameters:(NSArray *)parameters
+{
+    SEL selector = sel_registerName([selectorString cStringUsingEncoding:NSASCIIStringEncoding]);
+    NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[target methodSignatureForSelector:selector]];
+    
+    [inv setSelector:selector];
+    [inv setTarget:target];
+    int index = 2; // indices 0,1 are for self and _cmd
+    
+    for (id param in parameters) {
+        if ([param isKindOfClass:[NSNumber class]] && strcmp([param objCType], @encode(BOOL)) == 0) {
+            // FIXME: Cocoa decodes boolean values in JSON into the NSNumber Foundation type.
+            // Since NSNumber can wrap a variety of numerical types, this technique is used to determine
+            // if the value is a boolean.
+            // In the future, we'll process the JSON-converted data types according to the type encodings
+            // of the method being called.
+            NSLog(@"this is a bool");
+            BOOL val = [param boolValue];
+            [inv setArgument:(void *)&val atIndex:index];
+        } else {
+            [inv setArgument:(void *)&param atIndex:index];
+        }
+        index+=1;
+    }
+    
+    return inv;
+}
+
 -(void) addCallToList:(NSString *) callId target:(id)callBackObj resultSelector:(SEL)rSel errorSelector:(SEL)eSel {
 //    NSLog(@"%@ %@ %@ %@ %@ %@",callId, callBackObj, NSStringFromSelector(rSel), NSStringFromSelector(eSel), [callBackObj methodSignatureForSelector:rSel],[callBackObj methodSignatureForSelector:eSel]);
     
@@ -408,5 +570,4 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     
     return randomString;
 }
-
 @end
