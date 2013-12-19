@@ -15,6 +15,7 @@
 		9B0BE7E315B8964B0080ADC7 /* RSWebSocketApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B0BE7C515B8964B0080ADC7 /* RSWebSocketApplication.framework */; };
 		9B0BE7E915B8964B0080ADC7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B0BE7E715B8964B0080ADC7 /* InfoPlist.strings */; };
 		9B0BE7EC15B8964B0080ADC7 /* RSWebSocketApplicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BE7EB15B8964B0080ADC7 /* RSWebSocketApplicationTests.m */; };
+		9B4655CC186351A3009996E0 /* RSWebSocket.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9B58D75218634B8F00D13496 /* RSWebSocket.framework */; };
 		9B58D75B18634BB800D13496 /* RSWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B58D75218634B8F00D13496 /* RSWebSocket.framework */; };
 		9BE6B02015E45AC0006EF554 /* RSWebSocketApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B0BE7D515B8964B0080ADC7 /* RSWebSocketApplication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9B4655CC186351A3009996E0 /* RSWebSocket.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
